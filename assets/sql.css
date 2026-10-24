@@ -1,0 +1,294 @@
+.analysis-sql-section {
+  margin: 0 16px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.analysis-sql-section > summary {
+  position: relative;
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  color: var(--ink-600);
+  background: var(--surface-soft);
+  cursor: pointer;
+  list-style: none;
+}
+
+.analysis-sql-section > summary::-webkit-details-marker {
+  display: none;
+}
+
+.analysis-sql-section > summary > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.analysis-sql-section > summary svg,
+.analysis-sql-section > summary i {
+  width: 14px;
+  height: 14px;
+  color: var(--brand-600);
+}
+
+.analysis-sql-section > summary small {
+  color: var(--ink-400);
+  font-size: 8px;
+}
+
+.analysis-sql-section > summary::after {
+  color: var(--ink-400);
+  content: "⌄";
+  font-size: 11px;
+  transition: transform 150ms ease;
+}
+
+.analysis-sql-section[open] > summary::after {
+  transform: rotate(180deg);
+}
+
+.analysis-sql-content {
+  padding: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.analysis-sql-code-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.analysis-sql-code-head > span {
+  color: var(--ink-500);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+}
+
+.analysis-sql-preview {
+  max-height: 400px;
+  margin: 0;
+  padding: 14px;
+  border: 1px solid #20362d;
+  border-radius: 8px;
+  color: #dce9e3;
+  background: #10231b;
+  font: 10px/1.65 "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  overflow: auto;
+  tab-size: 2;
+}
+
+.analysis-sql-preview code {
+  font: inherit;
+  white-space: pre;
+}
+
+.sql-keyword {
+  color: #8fd7b3;
+  font-weight: 600;
+}
+
+.sql-comment {
+  color: #78988a;
+  font-style: italic;
+}
+
+.sql-string {
+  color: #e6c982;
+}
+
+.sql-literal {
+  color: #8ec5f0;
+}
+
+.analysis-sql-disclaimer {
+  margin-top: 9px;
+}
+
+.analysis-sql-editor-field {
+  margin-top: 10px;
+}
+
+.analysis-sql-editor-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.analysis-sql-expand {
+  width: 27px;
+  height: 27px;
+  color: var(--ink-500);
+  background: var(--surface-soft);
+}
+
+.analysis-sql-expand:hover {
+  color: var(--brand-700);
+  background: var(--brand-50);
+}
+
+.analysis-sql-expand span {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.analysis-sql-editor {
+  height: 220px;
+  min-height: 120px;
+  max-height: 220px;
+  padding: 11px;
+  border-color: #31463d;
+  color: #dce9e3;
+  background: #10231b;
+  font: 10px/1.6 "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  overflow-y: auto;
+  resize: vertical;
+  tab-size: 2;
+}
+
+.analysis-sql-editor:focus {
+  border-color: #63bb93;
+  box-shadow: 0 0 0 3px rgb(81 180 134 / 12%);
+}
+
+.analysis-sql-ai-slot {
+  min-height: 0;
+}
+
+.analysis-sql-modal {
+  width: 70vw;
+  height: 65vh;
+  max-width: calc(100vw - 28px);
+  max-height: calc(100vh - 28px);
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: var(--ink-950);
+  background: var(--surface);
+  box-shadow: 0 26px 80px rgb(8 24 17 / 32%);
+  overflow: hidden;
+}
+
+.analysis-sql-modal::backdrop {
+  background: rgb(8 20 15 / 58%);
+  backdrop-filter: blur(3px);
+}
+
+.analysis-sql-modal-shell {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.analysis-sql-modal-header {
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-soft);
+}
+
+.analysis-sql-modal-header strong,
+.analysis-sql-modal-header span {
+  display: block;
+}
+
+.analysis-sql-modal-header strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.analysis-sql-modal-header span {
+  margin-top: 2px;
+  color: var(--ink-500);
+  font-size: 8px;
+}
+
+.analysis-sql-modal-close {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--ink-600);
+  background: transparent;
+  font-size: 21px;
+  line-height: 1;
+}
+
+.analysis-sql-modal-close:hover {
+  color: var(--red);
+  border-color: #f0cbc8;
+  background: var(--red-soft);
+}
+
+.analysis-sql-modal-editor {
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+  padding: 16px;
+  border: 0;
+  outline: none;
+  color: #dce9e3;
+  background: #10231b;
+  font: 11px/1.7 "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  resize: none;
+  tab-size: 2;
+}
+
+.analysis-sql-modal-editor:focus {
+  box-shadow: inset 0 0 0 2px #4a9f78;
+}
+
+.analysis-sql-modal-footer {
+  padding: 8px 13px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-500);
+  background: var(--surface-soft);
+  font-size: 8px;
+}
+
+@media (max-width: 640px) {
+  .analysis-sql-section {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+  .analysis-sql-section > summary {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .analysis-sql-section > summary::after {
+    position: absolute;
+    right: 15px;
+  }
+
+  .analysis-sql-preview,
+  .analysis-sql-editor {
+    font-size: 9px;
+  }
+
+  .analysis-sql-modal {
+    width: calc(100vw - 20px);
+    height: 78vh;
+  }
+}

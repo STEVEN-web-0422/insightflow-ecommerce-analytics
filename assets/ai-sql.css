@@ -1,0 +1,164 @@
+.ai-sql-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  margin-top: 11px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.ai-sql-action-row > span {
+  margin-left: auto;
+  color: var(--ink-500);
+  font-size: 8px;
+}
+
+.ai-sql-revise-form,
+.ai-sql-result {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-soft);
+}
+
+.ai-sql-revise-form {
+  display: grid;
+  gap: 8px;
+}
+
+.ai-sql-revise-form .textarea {
+  min-height: 80px;
+  max-height: 220px;
+  background: var(--surface);
+  font-family: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  overflow-y: auto;
+  resize: vertical;
+}
+
+.ai-sql-revise-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 14px;
+}
+
+.ai-sql-revise-meta > span {
+  color: var(--ink-400);
+  font-size: 8px;
+}
+
+.ai-sql-revise-meta .ai-input-length-status {
+  margin-left: auto;
+  color: var(--ink-500);
+  white-space: nowrap;
+}
+
+.ai-sql-revise-meta .ai-input-length-status.warning {
+  color: var(--amber);
+}
+
+.ai-sql-revise-actions {
+  display: flex;
+  gap: 7px;
+  justify-content: flex-end;
+}
+
+.ai-sql-result {
+  background: var(--surface);
+}
+
+.ai-sql-result-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.ai-sql-result-head > strong {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.ai-sql-result-head > div {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ai-sql-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink-500);
+  font-size: 8px;
+}
+
+.ai-sql-loading .spinner {
+  width: 12px;
+  height: 12px;
+  border-width: 1.5px;
+}
+
+.ai-sql-result-placeholder,
+.ai-sql-text {
+  color: var(--ink-600);
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.ai-sql-text {
+  padding: 9px 10px;
+  border-radius: 7px;
+  background: var(--surface-soft);
+  white-space: normal;
+}
+
+.ai-sql-suggestion {
+  max-height: 330px;
+  margin: 0;
+  padding: 12px;
+  border-radius: 7px;
+  color: #dce9e3;
+  background: #10231b;
+  font: 10px/1.6 "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  overflow: auto;
+}
+
+.ai-sql-suggestion code {
+  font: inherit;
+  white-space: pre;
+}
+
+.ai-sql-explanation {
+  margin-top: 8px;
+  padding: 7px 9px;
+  border-left: 2px solid var(--brand-500, #20785a);
+  color: var(--ink-600);
+  background: var(--brand-50);
+  font-size: 9px;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.ai-sql-human-note {
+  margin-top: 8px;
+  color: var(--amber);
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.ai-sql-error {
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .ai-sql-action-row > span {
+    width: 100%;
+    margin-left: 0;
+  }
+}

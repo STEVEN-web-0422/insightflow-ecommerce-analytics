@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#123126">
+  <title>InsightFlow · 电商数据分析工作台</title>
+  <link rel="stylesheet" href="assets/app.css">
+  <link rel="stylesheet" href="assets/report.css">
+  <link rel="stylesheet" href="assets/history.css">
+  <link rel="stylesheet" href="assets/assistant.css">
+  <link rel="stylesheet" href="assets/sql.css">
+  <link rel="stylesheet" href="assets/ai-sql.css">
+  <link rel="stylesheet" href="assets/pipeline.css">
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="主导航">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">IF</div>
+        <div>
+          <strong>InsightFlow</strong>
+          <span>电商数据分析工作台</span>
+        </div>
+      </div>
+
+      <div class="workspace-chip">
+        <span class="workspace-chip-label">当前数据表</span>
+        <strong id="sidebar-table-name">尚未加载数据</strong>
+        <span id="sidebar-table-meta">请先载入示例数据</span>
+      </div>
+
+      <nav class="side-nav" aria-label="功能模块">
+        <section class="nav-section" data-nav-section>
+          <button class="nav-section-toggle" type="button" aria-expanded="true">
+            <span>数据准备</span><i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="nav-section-items">
+            <button class="nav-item active" type="button" data-route="data">
+              <i data-lucide="database" aria-hidden="true"></i><span>数据流水线</span>
+            </button>
+            <button class="nav-item" type="button" data-route="warehouse">
+              <i data-lucide="layers-3" aria-hidden="true"></i><span>分层数据</span>
+              <span class="nav-count" id="warehouse-count">0</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="nav-section" data-nav-section>
+          <button class="nav-section-toggle" type="button" aria-expanded="true">
+            <span>数据分析</span><i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="nav-section-items">
+            <button class="nav-item" type="button" data-route="analysis">
+              <i data-lucide="chart-no-axes-combined" aria-hidden="true"></i><span>业务分析</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="nav-section" data-nav-section>
+          <button class="nav-section-toggle" type="button" aria-expanded="true">
+            <span>可视化与报告</span><i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="nav-section-items">
+            <button class="nav-item" type="button" data-route="report">
+              <i data-lucide="file-chart-column" aria-hidden="true"></i><span>AI 报告</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="nav-section" data-nav-section>
+          <button class="nav-section-toggle" type="button" aria-expanded="true">
+            <span>沉淀与复盘</span><i data-lucide="chevron-down" aria-hidden="true"></i>
+          </button>
+          <div class="nav-section-items">
+            <button class="nav-item" type="button" data-route="history">
+              <i data-lucide="history" aria-hidden="true"></i><span>分析历史</span>
+            </button>
+          </div>
+        </section>
+      </nav>
+
+      <div class="sidebar-footer">
+        <span class="status-dot" id="storage-status-dot"></span>
+        <span id="storage-status-text">正在检查本地存储</span>
+      </div>
+    </aside>
+
+    <div class="app-main">
+      <header class="topbar">
+        <div class="page-heading">
+          <span id="page-eyebrow">数据准备 / ODS → DWD → ADS</span>
+          <h1 id="page-title">电商数据流水线</h1>
+        </div>
+        <div class="topbar-actions"></div>
+      </header>
+
+      <div class="context-bar">
+        <div class="context-primary">
+          <span class="context-kicker">当前分析上下文</span>
+          <strong id="context-table-name">尚未选择数据表</strong>
+        </div>
+        <div class="context-metrics" id="context-metrics">
+          <span><b>0</b> 行</span>
+          <span><b>0</b> 列</span>
+          <span>数据质量 <b>—</b></span>
+        </div>
+      </div>
+
+      <div class="dependency-banner" id="dependency-banner" hidden>
+        <i data-lucide="wifi-off" aria-hidden="true"></i>
+        <span>CSV 解析依赖未能加载。请检查网络后刷新页面，项目依赖 PapaParse CDN。</span>
+      </div>
+
+      <main class="content-main" id="content-main">
+        <section class="route-view" id="view-data" aria-labelledby="page-title"></section>
+        <section class="route-view" id="view-warehouse" hidden></section>
+        <section class="route-view" id="view-analysis" hidden></section>
+        <section class="route-view" id="view-report" hidden></section>
+        <section class="route-view" id="view-history" hidden></section>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast-stack" id="toast-stack" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="js/core/constants.js" defer></script>
+  <script src="js/core/utils.js" defer></script>
+  <script src="js/core/storage.js" defer></script>
+  <script src="js/core/state.js" defer></script>
+  <script src="js/ai-assistant.js" defer></script>
+  <script src="js/data/profiler.js" defer></script>
+  <script src="js/data/parser.js" defer></script>
+  <script src="js/data/warehouse.js" defer></script>
+  <script src="data/sample-events.js" defer></script>
+  <script src="js/data/data-warehouse.js" defer></script>
+  <script src="js/analysis/common.js" defer></script>
+  <script src="js/analysis/retention.js" defer></script>
+  <script src="js/analysis/funnel.js" defer></script>
+  <script src="js/analysis/rfm.js" defer></script>
+  <script src="js/analysis/descriptive.js" defer></script>
+  <script src="js/analysis/group.js" defer></script>
+  <script src="js/analysis/trend.js" defer></script>
+  <script src="js/analysis/correlation.js" defer></script>
+  <script src="js/analysis/store.js" defer></script>
+  <script src="js/analysis/engine.js" defer></script>
+  <script src="js/charts/chart-factory.js" defer></script>
+  <script src="js/sql-generator.js" defer></script>
+  <script src="js/ai/context-builder.js" defer></script>
+  <script src="js/ai/prompts.js" defer></script>
+  <script src="js/ai-config.js" defer></script>
+  <script src="js/ai/client.js" defer></script>
+  <script src="js/ai/chat-store.js" defer></script>
+  <script src="js/ai/report-store.js" defer></script>
+  <script src="js/ai/report.js" defer></script>
+  <script src="js/ui/common.js" defer></script>
+  <script src="js/ui/data-view.js" defer></script>
+  <script src="js/ui/warehouse-view.js" defer></script>
+  <script src="js/ui/analysis-view.js" defer></script>
+  <script src="js/ui/report-view.js" defer></script>
+  <script src="js/ui/history-view.js" defer></script>
+  <script src="js/ai-sql.js" defer></script>
+  <script src="js/ui/router.js" defer></script>
+  <script src="js/ai/ai-assistant.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>
