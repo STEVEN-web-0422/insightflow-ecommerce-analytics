@@ -1,0 +1,12 @@
+.env
+.env.*
+*.key
+*.pem
+secrets*
+node_modules/
+.vscode/
+.idea/
+ui-*.png
+*.log
+.DS_Store
+Thumbs.db
